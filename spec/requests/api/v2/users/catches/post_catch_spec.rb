@@ -59,7 +59,7 @@ RSpec.describe "Catches", type: :request do
 
       headers = { "CONTENT_TYPE" => "application/json" } 
       post "/api/v2/users/#{user.id}/catches", headers: headers, params: JSON.generate(catch_params)
-      
+
       expect(response).to_not be_successful
       expect(response.status).to eq(422)
 
