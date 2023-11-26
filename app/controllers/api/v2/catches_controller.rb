@@ -1,6 +1,6 @@
 class Api::V2::CatchesController < ApplicationController 
   before_action :set_user
-  before_action :set_catch, only: [:show, :update]
+  before_action :set_catch, only: [:show, :update, :destroy]
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
@@ -35,6 +35,11 @@ class Api::V2::CatchesController < ApplicationController
     end
   end
 
+  def destroy 
+    @catch.destroy
+    render json: { message: "Catch successfully deleted" }, status: 200
+  end
+
   private
 
   def set_user 
@@ -51,7 +56,22 @@ class Api::V2::CatchesController < ApplicationController
 
   def record_not_found(error) 
     model_name = error.message.split(" ")[2..2].join(" ").gsub(/#/, '').singularize
-
     render json: { error: "No #{model_name} with that ID could be found" }, status: :not_found
+  end
+
+  def purge_photos(ids_to_delete)
+    photo_ids = ids_to_delete.split(",").map(&:to_i)
+    purged_photos = []
+    errors = []
+  
+    photo_ids.each do |id|
+      begin
+        photo = @catch.photos.find(id)
+        photo.purge_later
+        purged_photos << id
+      rescue ActiveRecord::RecordNotFound => e
+        errors << "Photo with ID #{id} could not be found"
+      end
+    end
   end
 end
