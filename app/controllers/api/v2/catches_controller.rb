@@ -1,6 +1,9 @@
 class Api::V2::CatchesController < ApplicationController 
   before_action :set_user
-  
+  before_action :set_catch, only: [:show]
+
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   def create 
     @catch = @user.catches.build(catch_params)
     @catch.cloudinary_urls = params[:cloudinary_urls] if params[:cloudinary_urls]
@@ -10,6 +13,15 @@ class Api::V2::CatchesController < ApplicationController
     rescue ActiveRecord::RecordInvalid => e 
       render json: { error: e.message }, status: 422
     end
+  end
+
+  def index 
+    catches = @user.catches.all
+    render json: CatchSerializer.new(catches), status: 200 
+  end
+
+  def show 
+    render json: CatchSerializer.new(@catch), status: 200
   end
 
   private
@@ -24,5 +36,11 @@ class Api::V2::CatchesController < ApplicationController
 
   def catch_params 
     params.require(:catch).permit(:species, :weight, :length, :spot_name, :latitude, :longitude, :lure, cloudinary_urls: [])
+  end
+
+  def record_not_found(error) 
+    model_name = error.message.split(" ")[2..2].join(" ").gsub(/#/, '').singularize
+
+    render json: { error: "No #{model_name} with that ID could be found" }, status: :not_found
   end
 end
