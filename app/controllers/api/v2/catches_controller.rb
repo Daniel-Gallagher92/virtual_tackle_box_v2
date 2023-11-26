@@ -1,6 +1,6 @@
 class Api::V2::CatchesController < ApplicationController 
   before_action :set_user
-  before_action :set_catch, only: [:show]
+  before_action :set_catch, only: [:show, :update]
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
@@ -22,6 +22,17 @@ class Api::V2::CatchesController < ApplicationController
 
   def show 
     render json: CatchSerializer.new(@catch), status: 200
+  end
+
+  def update
+    if params[:cloudinary_urls]
+      @catch.cloudinary_urls = params[:cloudinary_urls]
+    end
+    if @catch.update(catch_params)
+      render json: CatchSerializer.new(@catch), status: 200
+    else
+      render json: { error: "Validation failed: #{@catch.errors.full_messages.join(", ")}" }, status: 422
+    end
   end
 
   private
