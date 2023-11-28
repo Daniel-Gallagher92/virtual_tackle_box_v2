@@ -32,6 +32,12 @@ class Api::V2::LuresController < ApplicationController
     end
   end
 
+  def destroy 
+    @lure = @user.lures.find(params[:id])
+    @lure.destroy
+    render json: { message: "Lure successfully deleted"}, status: 200
+  end
+
   private
 
   def set_user 
