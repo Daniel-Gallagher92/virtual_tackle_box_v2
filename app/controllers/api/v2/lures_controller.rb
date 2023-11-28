@@ -23,6 +23,15 @@ class Api::V2::LuresController < ApplicationController
     render json: LureSerializer.new(@lure), status: 200
   end
 
+  def update 
+    begin 
+      @lure.update!(lure_params)
+      render json: LureSerializer.new(@lure), status: 200
+    rescue ActiveRecord::RecordInvalid => e
+      render json: { error: e.message }, status: 422
+    end
+  end
+
   private
 
   def set_user 
