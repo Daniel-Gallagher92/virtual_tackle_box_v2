@@ -41,7 +41,7 @@ RSpec.describe "Sessions", type: :request do
       post "/api/v2/sessions", params: JSON.generate(user_params), headers: headers
 
       expect(response).to_not be_successful
-      expect(response).to have_http_status(:bad_request)
+      expect(response).to have_http_status(:unauthorized)
 
       session_data = JSON.parse(response.body, symbolize_names: true)
 
