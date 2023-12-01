@@ -22,7 +22,7 @@ RSpec.describe "CurrentUsers", type: :request do
       token = response.headers['Authorization'].split(' ').last
 
       # Make a request to the protected route with the token
-      get current_user_path, headers: { 'Authorization': "Bearer #{token}" }
+      get api_v2_current_user_path, headers: { 'Authorization': "Bearer #{token}" }
       expect(response).to have_http_status(:success)
     end
   end
