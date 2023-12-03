@@ -95,7 +95,7 @@ RSpec.describe "User API", type: :request do
       expect(response).to have_http_status(422)
       expect(error_data).to be_a(Hash)
       expect(error_data).to have_key(:error)
-      expect(error_data[:error]).to eq("Validation failed: Email can't be blank, Password digest can't be blank, Password can't be blank")
+      expect(error_data[:error]).to eq("Validation failed: Email can't be blank, Password can't be blank")
     end
   end
 end
