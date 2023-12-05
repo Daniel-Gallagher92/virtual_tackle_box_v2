@@ -161,7 +161,8 @@ RSpec.describe "User API", type: :request do
   end
 
   it "does not delete a non-existent user" do
-    delete user_registration_path, headers: { 'Authorization': @token }
+    token = "does not exist"
+    delete user_registration_path, headers: { 'Authorization': token }
     expect(response).to have_http_status(401)
   end
 end
