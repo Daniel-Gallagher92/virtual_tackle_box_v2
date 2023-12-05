@@ -15,7 +15,7 @@ RSpec.describe "CurrentUsers", type: :request do
     it "returns http success" do
       # Simulate user registration
       post user_registration_path, params: user_params
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:created)
 
       # Simulate user login to obtain JWT token
       post user_session_path, params: { user: { email: user_params[:user][:email], password: user_params[:user][:password] } }
