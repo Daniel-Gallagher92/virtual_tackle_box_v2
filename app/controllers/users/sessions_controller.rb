@@ -35,6 +35,11 @@ class Users::SessionsController < Devise::SessionsController
     }, status: :ok
   end
 
+  # def respond_with(resource, _opts = {})
+  # render json: UserSerializer.new(resource).serializable_hash.to_json, status: :ok
+  # end
+
+
   def respond_to_on_destroy
     if current_user
       render json: {
