@@ -11,7 +11,7 @@ RSpec.describe "Forecast Request" do
     expect(response).to be_successful 
     expect(response.status).to eq(200)
     expect(forecast).to be_a Hash
-    require 'pry'; binding.pry
+
     #test for keys that should be present in forecast
     expect(forecast).to have_key :data
     expect(forecast[:data]).to be_a Hash
@@ -64,7 +64,7 @@ RSpec.describe "Forecast Request" do
     #test for attributes that should be present in daily_weather
     expect(forecast[:data][:attributes]).to have_key :daily_weather
     expect(forecast[:data][:attributes][:daily_weather]).to be_a Array
-    # expect(forecast[:data][:attributes][:daily_weather].count).to eq(5)
+    expect(forecast[:data][:attributes][:daily_weather].count).to eq(3)
     expect(forecast[:data][:attributes][:daily_weather].first).to be_a Hash
     expect(forecast[:data][:attributes][:daily_weather].first).to have_key :date
     expect(forecast[:data][:attributes][:daily_weather].first[:date]).to be_a String

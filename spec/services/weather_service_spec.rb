@@ -88,8 +88,8 @@ RSpec.describe WeatherService do
         expect(forecast_days).to be_an(Array)
 
         #NOTE: Weather API is only returning 3 days of forecast data,
-        # no matter what I set the days param to. Waiting Email response from WeatherAPI.com
-        # expect(forecast_days.count).to eq(5)
+        # for free tier
+        expect(forecast_days.count).to eq(3)
 
         forecast_days.each do |day| 
           expect(day).to have_key(:date)
