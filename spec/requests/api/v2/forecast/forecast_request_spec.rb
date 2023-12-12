@@ -143,5 +143,10 @@ RSpec.describe "Forecast Request" do
 
     expect(response).to_not be_successful
     expect(response).to have_http_status(400)
+    
+    parsed_error = JSON.parse(response.body, symbolize_names: true)
+
+    expect(parsed_error).to have_key :error
+    expect(parsed_error[:error]).to eq("Location is required")
   end
 end
