@@ -636,8 +636,8 @@ Running this project requires:
 7. Visit the app on `localhost:3000` in your web browser
 
 ## Database Schema
-<img width="1045" alt="Screenshot 2023-10-22 at 3 10 28 PM" src="https://github.com/virtual-tackle-box/back-end-vtb/assets/64923238/400d2627-ec39-426c-9bb3-2c8893968acc">
 
+<img width="736" alt="Screenshot 2024-01-05 at 6 23 58 AM" src="https://github.com/Daniel-Gallagher92/virtual_tackle_box_v2/assets/64923238/0abc5b22-7b51-4f36-81c6-1965c17d58a8">
 
 ## Contributors
 
